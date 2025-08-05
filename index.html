@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Prompts Inteligentes para PYMES</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.sh/@google/genai@^0.14.0"
+        }
+      }
+    </script>
+    <script type="module" src="index.tsx"></script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Generador de Prompts Inteligentes</h1>
+            <p>Crea prompts de IA personalizados para transformar áreas clave de tu PYME o negocio retail.</p>
+        </header>
+
+        <div class="container">
+            <div class="form-container">
+                <form id="prompt-form" aria-labelledby="form-title">
+                    <h2 id="form-title" class="sr-only">Configuración del Prompt</h2>
+                    
+                    <div class="form-group">
+                        <label for="area_de_negocio">Área de Negocio</label>
+                        <select id="area_de_negocio" name="area_de_negocio" required>
+                            <option value="Marketing y Comunicación">Marketing y Comunicación</option>
+                            <option value="Ventas y Estrategia Comercial">Ventas y Estrategia Comercial</option>
+                            <option value="Atención al cliente">Atención al Cliente</option>
+                            <option value="Operaciones y Logística">Operaciones y Logística</option>
+                            <option value="Recursos Humanos">Recursos Humanos</option>
+                            <option value="Finanzas y Administración">Finanzas y Administración</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reto">Reto Principal a Resolver</label>
+                        <input type="text" id="reto" name="reto" placeholder="Ej: Aumentar el reconocimiento de marca" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo_de_pyme">Tipo de Empresa y Cliente Ideal</label>
+                        <input type="text" id="tipo_de_pyme" name="tipo_de_pyme" placeholder="Ej: Tienda de productos ecológicos para familias" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tecnica_prompting">Técnica de Prompting</label>
+                        <select id="tecnica_prompting" name="tecnica_prompting" required>
+                            <option value="DRCA">DRCA</option>
+                            <option value="One-Shot">One-Shot</option>
+                            <option value="Chain of Thought">Chain of Thought</option>
+                            <option value="EGI">EGI</option>
+                            <option value="Autodiagnóstico">Autodiagnóstico</option>
+                            <option value="Ingeniería Inversa">Ingeniería Inversa</option>
+                            <option value="Sintaxis de Precisión">Sintaxis de Precisión</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tono">Tono de Comunicación</label>
+                        <select id="tono" name="tono" required>
+                            <option value="Cercano e inspirador">Cercano e inspirador</option>
+                            <option value="Profesional y resolutivo">Profesional y resolutivo</option>
+                            <option value="Formal y corporativo">Formal y corporativo</option>
+                            <option value="Creativo y original">Creativo y original</option>
+                            <option value="Técnico y detallado">Técnico y detallado</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="generate-button">
+                        <span class="button-text">Generar Prompt</span>
+                        <div class="spinner" aria-hidden="true"></div>
+                    </button>
+                </form>
+            </div>
+
+            <div class="result-wrapper">
+                <div id="result-container" aria-live="polite">
+                    <div class="result-header">
+                        <h2>Prompt Generado</h2>
+                        <button id="copy-button" title="Copiar al portapapeles">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            <span>Copiar</span>
+                        </button>
+                    </div>
+                    <pre><code id="prompt-output">El prompt generado aparecerá aquí. Completa el formulario y haz clic en "Generar Prompt" para comenzar.</code></pre>
+                </div>
+                <div id="error-container" class="error" role="alert" aria-atomic="true"></div>
+            </div>
+        </div>
+    </main>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
