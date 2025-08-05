@@ -17,11 +17,11 @@ Prompt generado:
 `;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Fallback for API_KEY
-    if (!process.env.API_KEY) {
+    if (!import.meta.env.VITE_GEMINI_API_KEY) {
         console.warn("API_KEY environment variable not set.");
     }
-    const ai = new GoogleGenAI({apiKey: process.env.API_KEY});
+
+    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
     const form = document.getElementById('prompt-form') as HTMLFormElement;
     const generateButton = document.getElementById('generate-button') as HTMLButtonElement;
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         if (generateButton.disabled) return;
 
         generateButton.disabled = true;
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tono = formData.get('tono') as string;
 
         const userMessage = promptTemplate(area_de_negocio, reto, tipo_de_pyme, tecnica_prompting, tono);
-        
+
         try {
             const stream = await ai.models.generateContentStream({
                 model: 'gemini-2.5-flash',
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             let fullResponse = '';
-            promptOutput.textContent = ''; 
+            promptOutput.textContent = '';
 
             for await (const chunk of stream) {
                 const chunkText = chunk.text;
@@ -78,13 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
             generateButton.disabled = false;
         }
     });
-    
+
     copyButton.addEventListener('click', async () => {
         const textToCopy = promptOutput.textContent;
         if (!textToCopy || textToCopy === 'El prompt generado aparecerá aquí. Completa el formulario y haz clic en "Generar Prompt" para comenzar.') {
             return;
         }
-        
+
         try {
             await navigator.clipboard.writeText(textToCopy);
             const originalText = copyButton.querySelector('span').textContent;
@@ -97,3 +97,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
